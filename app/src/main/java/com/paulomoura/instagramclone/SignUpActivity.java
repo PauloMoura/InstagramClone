@@ -18,7 +18,7 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText edtName, edtPunchSpeed, edtPunchPower, edtKickSpeed, edtKickPower;
-    private Button btnSave, btnGetAllData;
+    private Button btnSave, btnGetAllData, btnNextActivity;
     private TextView txtGetData;
 
     @Override
@@ -41,6 +41,10 @@ public class SignUpActivity extends AppCompatActivity {
         btnGetAllData = findViewById(R.id.btnGetAllData);
         btnGetAllData.setOnClickListener(view -> {
             ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("KickBoxer");
+
+            queryAll.whereGreaterThan("punchPower", 300);
+            queryAll.whereStartsWith("name", "Joh");
+
             queryAll.findInBackground(((objects, e) -> {
                 if (e == null) {
                     if (objects.size() > 0) {
@@ -72,6 +76,11 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                 }
             }));
+        });
+
+        btnNextActivity = findViewById(R.id.btnNextActivity);
+        btnNextActivity.setOnClickListener(view -> {
+
         });
     }
 
